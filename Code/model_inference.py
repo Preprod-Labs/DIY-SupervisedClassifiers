@@ -1,12 +1,12 @@
 # META DATA - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
 # Developer details: 
-    # Name: Mohini T
-    # Role: Architect
-    # Code ownership rights: Mohini T
+    # Name: Mohini T and Vansh R
+    # Role: Architects
+    # Code ownership rights: Mohini T and Vansh R
 # Version:
-    # Version: V 1.0 (19 Mar 2024)
-    # Developer: Mohini T
+    # Version: V 1.1 (05 July 2024)
+    # Developer: Mohini T and Vansh R
     # Unit test: Pass
     # Integration test: Pass
 

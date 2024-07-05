@@ -2,6 +2,10 @@
 
 This is the K-Nearest Neighbors branch.
 
+# K-Nearest Neighbors
+
+The k-Nearest Neighbors (KNN) algorithm is a non-parametric, instance-based learning method used for classification. For a given query point, kNN identifies the 'k' closest training examples using distance metrics like Euclidean or Manhattan distance. The class label is determined by a majority vote among these 'k' neighbors. kNN supports multi-class classification and is effective for small to moderate-sized datasets. However, it can be sensitive to the choice of 'k' and feature scaling, and may become computationally expensive for large datasets. Despite these challenges, kNN remains a popular method for classification tasks.
+
 # KNN Classifier
 
 ## Problem Definition
@@ -11,6 +15,8 @@ Develop a microservices-based architecture for a K-Nearest Neighbors (KNN) Super
 ## Data Definition
 
 Mock data for learning purposes with features: Age, Vehicle Age, Annual Mileage, Accident History, Vehicle Type, and Claim status.
+
+> Since this dataset only consists of 1000 samples, with 600 used for training, the model tends to overfit and give 100% accuracy. This would not be the case for real-life scenarios with larger datasets, where more varied data would prevent such overfitting and provide a more realistic accuracy.
 
 ## Directory Structure
 
@@ -24,8 +30,6 @@ Mock data for learning purposes with features: Age, Vehicle Age, Annual Mileage,
 - **Validation Samples**: 150
 - **Supervalidation Samples**: 100
 
-> Since this dataset only consists of 1000 samples, with 600 used for training, the model tends to overfit and give 100% accuracy. This would not be the case for real-life scenarios with larger datasets, where more varied data would prevent such overfitting and provide a more realistic accuracy.
-
 ## Program Flow
 
 1. **Data Ingestion:** Extract data from 'Data/Master' and ingest into MongoDB or SQLite. [`ingest_transform_mongodb.py`, `ingest_transform_sqlite.py`]
@@ -38,11 +42,4 @@ Mock data for learning purposes with features: Age, Vehicle Age, Annual Mileage,
 ## Steps to Run
 
 1. Install the necessary packages: `pip install -r requirements.txt`
-2. Ingest, transform, and split the data by running either `ingest_transform_mongodb.py` or `ingest_transform_sqlite.py`.
-3. Run `load_mongodb.py` or `load_sqlite.py` to load the data into the respective CSV files.
-4. Run `model_training.py` to train the KNN model and perform hyperparameter tuning.
-5. Run `model_inference.py` to obtain classification reports for the test, validation, and supervalidation datasets.
-6. Use `manual_prediction.py` to predict claim status based on new data points.
-7. Run `app.py` to launch the Streamlit web application and use the GUI for the entire pipeline.
-
-**Optional:** Adjust paths and configurations in the scripts as per your environment setup.
+2. Run `app.py` to launch the Streamlit web application and use the GUI for the entire pipeline.

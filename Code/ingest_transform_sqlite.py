@@ -10,7 +10,7 @@
     # Unit test: Pass
     # Integration test: Pass
 
-# Description: This code loads the data from MongoDB and stores it into .csv files in the Processed folder.
+# Description: This code ingests the original data, transforms it, and stores it into SQLite database.
     # MYSQL: No
     # NoSQL: Yes (MongoDB)
     # MQs: No

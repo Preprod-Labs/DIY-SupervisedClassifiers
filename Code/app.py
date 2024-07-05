@@ -2,28 +2,29 @@
 
 # Developer details: 
     # Name: Mohini T and Vansh R
-    # Role: Architect
+    # Role: Architects
     # Code ownership rights: Mohini T and Vansh R
 # Version:
-    # Version: V 1.0 (19 Mar 2024)
+    # Version: V 1.1 (05 July 2024)
     # Developer: Mohini T and Vansh R
     # Unit test: Pass
     # Integration test: Pass
 
-# Description: This Streamlit app allows users to input features and make predictions using a pre-trained K-Nearest Neighbors model.
-# MYSQL: No
-# NoSQL: Yes (MongoDB)
-# MQs: No
-# Cloud: No
-# Data versioning: No
-# Data masking: Yes
+# Description: This Streamlit app allows users to input features and make predictions using a re-trained
+# K-Nearest Neighbors model.
+    # MYSQL: No
+    # NoSQL: Yes (MongoDB)
+    # MQs: No
+    # Cloud: No
+    # Data versioning: No
+    # Data masking: Yes
 
 # CODE - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
 # Dependency: 
     # Environment:     
-    # Python 3.11.5
-    # Streamlit 1.36.0
+        # Python 3.11.5
+        # Streamlit 1.36.0
 
 import streamlit as st
 
