@@ -1,0 +1,82 @@
+# META DATA - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+    # Developer details: 
+        # Name: Mohini T and Vansh R
+        # Role: Architect
+        # Code ownership rights: Mohini T and Vansh R
+    # Version:
+        # Version: V 1.1 (05 July 2024)
+            # Developer: Mohini T and Vansh R
+            # Unit test: Pass
+            # Integration test: Pass
+     
+    # Description: This code ingests raw data from a CSV file, preprocesses it, splits it into
+    # datasets, and stores it in a MySQL database.
+
+        # MYSQL: Yes
+        # MQs: No
+        # Cloud: No
+        # Data versioning: No
+        # Data masking: No
+
+
+# CODE - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+# Dependency: 
+    # Environment:     
+        # Python: 3.11.5
+        # Pandas: 2.2.2
+        # Scikit-learn: 1.5.0
+        # mysql-connector-python: 8.4.0
+        # SQLAlchemy: 2.0.31
+
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sqlalchemy import create_engine, text
+from sklearn.preprocessing import LabelEncoder, StandardScaler
+
+def create_database_if_not_exists(engine):
+    with engine.connect() as conn:
+        conn.execute(text("CREATE DATABASE IF NOT EXISTS preprod_db"))
+        conn.execute(text("USE preprod_db"))
+
+def ingest_and_transform():
+    # Load the raw data from CSV
+    df = pd.read_csv('Data/Master/mock_data.csv')
+    
+    # Preprocess data: Extract 'day' feature as datetime type
+    df['day'] = pd.to_datetime(df['day'], format='%d/%m/%Y')
+    
+    # Encode the 'weather' column
+    label_encoder = LabelEncoder()
+    df['weather'] = label_encoder.fit_transform(df['weather'])
+    
+    # Print the mapping of original labels to encoded labels
+    print("Encoded weather classes:", label_encoder.classes_)
+    
+    # Scale the numerical columns
+    scaler = StandardScaler()
+    df[['temperature', 'humidity', 'wind_speed']] = scaler.fit_transform(df[['temperature', 'humidity', 'wind_speed']])
+    
+    # Split the data
+    train_data, temp_data = train_test_split(df, train_size=600, random_state=42)
+    test_data, temp_data = train_test_split(temp_data, train_size=150, random_state=42)
+    val_data, superval_data = train_test_split(temp_data, train_size=150, random_state=42)
+
+    # Connect to MySQL database using SQLAlchemy
+    engine = create_engine("mysql+mysqlconnector://root:password@localhost")
+    create_database_if_not_exists(engine)
+    
+    engine = create_engine("mysql+mysqlconnector://root:password@localhost/preprod_db")
+
+    # Store the split data to the database
+    train_data.to_sql('train_data', con=engine, if_exists='replace', index=False)
+    test_data.to_sql('test_data', con=engine, if_exists='replace', index=False)
+    val_data.to_sql('val_data', con=engine, if_exists='replace', index=False)
+    superval_data.to_sql('superval_data', con=engine, if_exists='replace', index=False)
+
+def main():
+    ingest_and_transform()
+
+if __name__ == "__main__":
+    main()
