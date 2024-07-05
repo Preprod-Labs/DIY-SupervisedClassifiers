@@ -37,21 +37,17 @@ def load_from_mongo(collection_name): # Load data from MongoDB
     data.drop(columns=['_id'], inplace=True) # Drop the MongoDB default '_id' field
     return data # Return the data
 
-def call_mongo():
-    # Load data from MongoDB
+def get_train_mongo():
+    # Load and return training data from MongoDB
     train_data = load_from_mongo('training_data')
+    
+    return train_data
+    
+def get_eval_mongo():
+    # Load and return the evaluation data from MongoDB
+    
     test_data = load_from_mongo('testing_data')
     val_data = load_from_mongo('validation_data')
     sup_data = load_from_mongo('supervalidation_data')
     
-    # Save to CSV
-    train_data.to_csv('D:/PreProd Corp/DIY-SupervisedClassifiers/Data/Processed/MongoDB/training_data.csv', index=False)
-    test_data.to_csv('D:/PreProd Corp/DIY-SupervisedClassifiers/Data/Processed/MongoDB/testing_data.csv', index=False)
-    val_data.to_csv('D:/PreProd Corp/DIY-SupervisedClassifiers/Data/Processed/MongoDB/validation_data.csv', index=False)
-    sup_data.to_csv('D:/PreProd Corp/DIY-SupervisedClassifiers/Data/Processed/MongoDB/supervalidation_data.csv', index=False)
-
-    # Print a success message
-    print("Data sucessfully loaded from MongoDB and stored in .csv files.")
-
-if __name__ == "__main__":
-    call_mongo()
+    return test_data, val_data, sup_data

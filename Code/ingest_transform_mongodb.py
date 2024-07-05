@@ -34,7 +34,11 @@ from pymongo import MongoClient
 
 def transform_data(data): # Transform raw data for model training
     # Convert categorical variable 'vehicle_type' into dummy variables
+    
+    print()
     data = pd.get_dummies(data, columns=['vehicle_type'], drop_first=True)
+    
+    print(data.head())
     
     # Separate features (X) and target variable (y)
     X = data.drop(columns=['claim', 'policy_id'])
@@ -67,8 +71,10 @@ def store_to_mongo(data, collection_name): # Store data into MongoDB
     collection = db[collection_name] # Select the collection
     collection.insert_many(data.to_dict('records')) # Insert the data into the collection
 
-def mongo_data(): # Ingest, transform, and store data into MongoDB
-    data = pd.read_csv('D:\PreProd Corp\DIY-SupervisedClassifiers\Data\Master\mock_data.csv') # Read data from CSV file
+def mongo_data(data_path): # Ingest, transform, and store data into MongoDB
+
+    data = pd.read_csv(data_path) # Load the data
+    
     X, y = transform_data(data) # Transform data
     train_data, test_data, val_data, superval_data = split_data(X, y) # Split data
 
@@ -82,4 +88,4 @@ def mongo_data(): # Ingest, transform, and store data into MongoDB
     print("Data ingested, transformed, and stored to mongoDB successfully.")
 
 if __name__ == "__main__":
-    mongo_data()
+    mongo_data('Data/Master/mock_data.csv')

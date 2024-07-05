@@ -25,22 +25,28 @@
         # Python 3.11.5
         # Pandas 2.2.2
         # scikit-learn 1.5.0
-        # Numpy 2.0.0
         # joblib 1.4.2
 
 # Note: This dataset consists of only 1000 samples, with 600 used for training. 
 # The model tends to overfit and gives 100% accuracy. In real-life scenarios with larger datasets, 
 # this overfitting would be less likely, and the accuracy would be more realistic.
 
-import pandas as pd
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.metrics import classification_report
 from sklearn.model_selection import GridSearchCV
 import joblib
 
-def train_model(database): # Train the KNN model
+from load_mongodb import get_train_mongo
+from load_sqlite import get_train_sqlite
+
+def train_model(database, model_path, db_path=""): # Train the KNN model
     # Read the training data from the specified database
-    train_data = pd.read_csv(f'D:/PreProd Corp/DIY-SupervisedClassifiers/Data/Processed/{database}/training_data.csv')
+    
+    if database == 'MongoDB':
+        train_data = get_train_mongo()
+    else:
+        train_data = get_train_sqlite(db_path)
+
     X_train = train_data.drop(columns=['claim'])
     y_train = train_data['claim']
 
@@ -63,7 +69,7 @@ def train_model(database): # Train the KNN model
     best_model = grid_search.best_estimator_
 
     # Save the best model
-    joblib.dump(best_model, 'D:/PreProd Corp/DIY-SupervisedClassifiers/knn_model.pkl')
+    joblib.dump(best_model, model_path)
 
     # Predict on the training data with the best model
     y_train_pred = grid_search.predict(X_train)
@@ -79,7 +85,3 @@ def train_model(database): # Train the KNN model
     print(train_grid)
 
     return train_eval, train_grid
-    
-
-if __name__ == "__main__":
-    train_model(database='MongoDB')

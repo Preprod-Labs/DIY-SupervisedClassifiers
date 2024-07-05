@@ -55,21 +55,24 @@ def split_data(X, y): # Split data into training, testing, validation, and super
     
     return train_data, test_data, val_data, superval_data
 
-def store_to_sqlite(data, table_name, db_path='D:\PreProd Corp\DIY-SupervisedClassifiers\Data\Processed\processed_data.db'): # Store data into SQLite database
+def store_to_sqlite(data, table_name, db_path): # Store data into SQLite database
     conn = sqlite3.connect(db_path) # Connect to the SQLite database
     data.to_sql(table_name, conn, index=False, if_exists='replace') # Store the data into the specified table
     conn.close() # Close the database connection
 
-def sqlite_data(): # Ingest, transform, and store data into SQLite.
-    data = pd.read_csv('D:\PreProd Corp\DIY-SupervisedClassifiers\Data\Master\mock_data.csv')
+def sqlite_data(data_path, db_path): # Ingest, transform, and store data into SQLite.
+    
+    # Load the data
+    data = pd.read_csv(data_path)
+    
     X, y = transform_data(data)
     train_data, test_data, val_data, superval_data = split_data(X, y)
     
     # Store to SQLite
-    store_to_sqlite(train_data, 'training_data')
-    store_to_sqlite(test_data, 'testing_data')
-    store_to_sqlite(val_data, 'validation_data')
-    store_to_sqlite(superval_data, 'supervalidation_data')
+    store_to_sqlite(train_data, 'training_data', db_path)
+    store_to_sqlite(test_data, 'testing_data', db_path)
+    store_to_sqlite(val_data, 'validation_data', db_path)
+    store_to_sqlite(superval_data, 'supervalidation_data', db_path)
 
     # Print a success message
     print("Data successfully ingested, transformed, and stored to SQLite.")

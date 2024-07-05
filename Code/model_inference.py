@@ -23,24 +23,24 @@
 # Dependency: 
     # Environment:     
         # Python 3.11.5
-        # Pandas 2.2.2
         # scikit-learn 1.5.0
         # joblib 1.4.2
 
-import pandas as pd
 from sklearn.metrics import classification_report
 import joblib
+
+from load_sqlite import get_eval_sqlite
+from load_mongodb import get_eval_mongo
 
 def evaluate_model(model, X, y): # Evaluate the model and return classification report
     y_pred = model.predict(X)
     return (classification_report(y, y_pred))
 
-def infer_model(database):
-    model = joblib.load('D:\PreProd Corp\DIY-SupervisedClassifiers\knn_model.pkl')
+def infer_model(database, model_path, db_path=""):
+    model = joblib.load(model_path) # Load the trained model
     
-    test_data = pd.read_csv(f'D:/PreProd Corp/DIY-SupervisedClassifiers/Data/Processed/{database}/testing_data.csv') # Load testing data
-    val_data = pd.read_csv(f'D:/PreProd Corp/DIY-SupervisedClassifiers/Data/Processed/{database}/validation_data.csv') # Load validation data
-    sup_data = pd.read_csv(f'D:/PreProd Corp/DIY-SupervisedClassifiers/Data/Processed/{database}/supervalidation_data.csv') # Load supervalidation data
+    # Loads the eval data from Mongo if database is MongoDB, else loads from SQLite
+    test_data, val_data, sup_data = get_eval_mongo() if database == 'MongoDB' else get_eval_sqlite(db_path)
     
     X_test = test_data.drop(columns=['claim']) # Extract features from testing data
     y_test = test_data['claim'] # Extract labels from testing data
@@ -59,6 +59,3 @@ def infer_model(database):
     superval_eval = evaluate_model(model, X_sup, y_sup) # Evaluate model on supervalidation data
 
     return test_eval, val_eval, superval_eval
-
-if __name__ == "__main__":
-    infer_model(database='SQLite') # Run model inference on SQLite database

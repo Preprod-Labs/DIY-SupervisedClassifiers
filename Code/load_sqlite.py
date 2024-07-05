@@ -28,27 +28,23 @@
 import pandas as pd
 import sqlite3
 
-def load_from_sqlite(table_name, db_path='D:\PreProd Corp\DIY-SupervisedClassifiers\Data\Processed\processed_data.db'): # Load data from SQLite database
+def load_from_sqlite(table_name, db_path): # Load data from SQLite database
     conn = sqlite3.connect(db_path) # Establish a connection to the SQLite database
     data = pd.read_sql(f'SELECT * FROM {table_name}', conn) # Read data from the specified table
     conn.close() # Close the database connection
+    
     return data # Return the loaded data
 
-def call_sqlite():
-    # Load data from SQLite
-    train_data = load_from_sqlite('training_data')
-    test_data = load_from_sqlite('testing_data')
-    val_data = load_from_sqlite('validation_data')
-    sup_data = load_from_sqlite('supervalidation_data')
+def get_train_sqlite(db_path):
+    # Load and return training data from SQLite
+    train_data = load_from_sqlite('training_data', db_path)
     
-    # Save to CSV
-    train_data.to_csv('D:/PreProd Corp/DIY-SupervisedClassifiers/Data/Processed/SQLite/training_data.csv', index=False)
-    test_data.to_csv('D:/PreProd Corp/DIY-SupervisedClassifiers/Data/Processed/SQLite/testing_data.csv', index=False)
-    val_data.to_csv('D:/PreProd Corp/DIY-SupervisedClassifiers/Data/Processed/SQLite/validation_data.csv', index=False)
-    sup_data.to_csv('D:/PreProd Corp/DIY-SupervisedClassifiers/Data/Processed/SQLite/supervalidation_data.csv', index=False)
-
-    # Print a success message
-    print("Data succesfully loaded from SQLite and stored to CSV.")
-
-if __name__ == "__main__":
-    call_sqlite()
+    return train_data
+    
+def get_eval_sqlite(db_path):
+    # Load and return the evaluation data from SQLite
+    test_data = load_from_sqlite('testing_data', db_path)
+    val_data = load_from_sqlite('validation_data', db_path)
+    sup_data = load_from_sqlite('supervalidation_data', db_path)
+    
+    return test_data, val_data, sup_data

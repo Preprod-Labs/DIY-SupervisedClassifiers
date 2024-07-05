@@ -23,15 +23,13 @@
 # Dependency: 
     # Environment:     
         # Python 3.11.5
-        # Numpy 2.0.0
         # joblib 1.4.2
 
 import joblib
-import numpy as np
 
-def manual_predict(age, vehicle_age, annual_mileage, accident_history, vehicle_type):
+def manual_predict(age, vehicle_age, annual_mileage, accident_history, vehicle_type, model_path):
     # Load the pre-trained K-Nearest Neighbors model
-    model = joblib.load('D:\PreProd Corp\DIY-SupervisedClassifiers\knn_model.pkl')
+    model = joblib.load(model_path)
     
     # Encode the vehicle type
     vehicle_type_encoded = [0, 0, 0, 0]  # [SUV, Sedan, Tractor, Truck]
