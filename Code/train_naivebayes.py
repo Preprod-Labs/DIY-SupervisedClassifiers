@@ -29,13 +29,13 @@
         # Scikit-learn: 1.5.0
 
 from sklearn.naive_bayes import GaussianNB
-import pickle
+import joblib
 from load import load_train_data
 from evaluate import evaluate_model
 import pandas as pd
 from sklearn.preprocessing import LabelEncoder
 
-def train_model():
+def train_model(model_path):
     # Load the preprocessed training data from the database
     X_train, y_train = load_train_data()
 
@@ -44,8 +44,7 @@ def train_model():
     model.fit(X_train, y_train)
     
     # Save the model
-    with open('naive_bayes.pkl', 'wb') as file:
-        pickle.dump(model, file)
+    joblib.dump(model, model_path)
 
     # Load label encoder to decode labels
     label_encoder = LabelEncoder()
@@ -60,4 +59,4 @@ def train_model():
     print(f"Cross-validation Scores: {cross_val_scores}\n")
 
 if __name__ == "__main__":
-    train_model()
+    train_model('naive_bayes.pkl')

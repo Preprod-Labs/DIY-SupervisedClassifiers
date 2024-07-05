@@ -40,9 +40,9 @@ def create_database_if_not_exists(engine):
         conn.execute(text("CREATE DATABASE IF NOT EXISTS preprod_db"))
         conn.execute(text("USE preprod_db"))
 
-def ingest_and_transform():
+def ingest_and_transform(data_path):
     # Load the raw data from CSV
-    df = pd.read_csv('Data/Master/mock_data.csv')
+    df = pd.read_csv(data_path)
     
     # Preprocess data: Extract 'day' feature as datetime type
     df['day'] = pd.to_datetime(df['day'], format='%d/%m/%Y')
