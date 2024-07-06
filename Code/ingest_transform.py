@@ -40,7 +40,7 @@ def create_database_if_not_exists(engine):
         conn.execute(text("CREATE DATABASE IF NOT EXISTS preprod_db"))
         conn.execute(text("USE preprod_db"))
 
-def ingest_and_transform(data_path):
+def ingest_and_transform(data_path, mysql_db_url, mysql_db_name):
     # Load the raw data from CSV
     df = pd.read_csv(data_path)
     
@@ -64,10 +64,10 @@ def ingest_and_transform(data_path):
     val_data, superval_data = train_test_split(temp_data, train_size=150, random_state=42)
 
     # Connect to MySQL database using SQLAlchemy
-    engine = create_engine("mysql+mysqlconnector://root:password@localhost")
+    engine = create_engine(mysql_db_url)
     create_database_if_not_exists(engine)
     
-    engine = create_engine("mysql+mysqlconnector://root:password@localhost/preprod_db")
+    engine = create_engine(f"{mysql_db_url}/{mysql_db_name}")
 
     # Store the split data to the database
     train_data.to_sql('train_data', con=engine, if_exists='replace', index=False)
@@ -75,8 +75,5 @@ def ingest_and_transform(data_path):
     val_data.to_sql('val_data', con=engine, if_exists='replace', index=False)
     superval_data.to_sql('superval_data', con=engine, if_exists='replace', index=False)
 
-def main():
-    ingest_and_transform()
-
 if __name__ == "__main__":
-    main()
+    ingest_and_transform("Data/Master/Mock_Data.csv")

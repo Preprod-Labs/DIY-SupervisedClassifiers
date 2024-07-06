@@ -26,18 +26,17 @@
         # Python: 3.11.5
         # Pandas: 2.2.2
 
-import pickle
+import joblib
 import pandas as pd
 from sklearn.preprocessing import StandardScaler, LabelEncoder
 from load import load_train_data
 
-def load_model_and_encoder(model_path):
+def load_model_and_encoder(model_path, mysql_db_url, mysql_db_name):
     # Load the trained model
-    with open(model_path, 'rb') as file:
-        model = pickle.load(file)
+    model = joblib.load(model_path)
     
     # Fetch a sample of training data to fit the label encoder
-    X_train, y_train = load_train_data()
+    X_train, y_train = load_train_data(mysql_db_url, mysql_db_name)
     label_encoder = LabelEncoder()
     label_encoder.fit(y_train)
     
@@ -54,15 +53,14 @@ def get_user_input():
     features = pd.DataFrame([[temperature, humidity, wind_speed]], columns=['temperature', 'humidity', 'wind_speed'])
     return features
 
-def manual_prediction():
+def manual_prediction(temperature, humidity, wind_speed, model_path, mysql_db_url, mysql_db_name):
     model_path = 'ridge_classifier.pkl'  # Path to the Ridge Classifier model
-    model, label_encoder = load_model_and_encoder(model_path)
+    model, label_encoder = load_model_and_encoder(model_path, mysql_db_url, mysql_db_name)
     
-    # Get user input
-    features = get_user_input()
-    
+    features = pd.DataFrame([[temperature, humidity, wind_speed]], columns=['temperature', 'humidity', 'wind_speed'])
+
     # Scale the features
-    X_train, _ = load_train_data()
+    X_train, _ = load_train_data(mysql_db_url, mysql_db_name)
     scaler = StandardScaler()
     scaler.fit(X_train)  # Fit scaler on the training data
     scaled_features = scaler.transform(features)
@@ -71,7 +69,4 @@ def manual_prediction():
     prediction = model.predict(scaled_features)
     weather_prediction = label_encoder.inverse_transform(prediction)
     
-    print(f"Predicted Weather: {weather_prediction[0]}")
-
-if __name__ == "__main__":
-    manual_prediction()
+    return weather_prediction[0]

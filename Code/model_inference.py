@@ -28,7 +28,7 @@
         # Pandas: 2.2.2
         # SQLAlchemy: 2.0.31
 
-import pickle
+import joblib
 import pandas as pd
 from sqlalchemy import create_engine
 from sqlalchemy.exc import SQLAlchemyError
@@ -47,13 +47,16 @@ def load_data(db_url, table_name):
         print(f"Error loading data from {table_name}: {e}")
         return None
 
-def model_inference(model_path, db_url):
+def model_inference(model_path, mysql_db_url, mysql_db_name):
     # Load the model
-    with open(model_path, 'rb') as file:
-        model = pickle.load(file)
+    model = joblib.load(model_path)
+    
+    # Set the db_url
+    db_url = f"{mysql_db_url}/{mysql_db_name}"
 
     # Load label encoder to decode labels
     label_encoder = LabelEncoder()
+    
     # Fetching a sample of training data to fit the label encoder
     engine = create_engine(db_url)
     train_data = pd.read_sql('SELECT * FROM train_data', con=engine)
@@ -66,6 +69,7 @@ def model_inference(model_path, db_url):
         'Supervalidation': 'superval_data'
     }
 
+    metrics = {}
     for dataset_name, table_name in datasets.items():
         # Print dataset name
         print(f"Evaluating on {dataset_name} Data:")
@@ -80,10 +84,10 @@ def model_inference(model_path, db_url):
                 label_encoder.fit(data['weather'])
             # Evaluate the model on the data
             accuracy, report, cross_val_scores = evaluate_model(model, data, label_encoder)
-            # Print accuracy, classification report, and cross-validation scores
-            print(f"Accuracy: {accuracy}")
-            print(f"Classification Report:\n{report}")
-            print(f"Cross-validation Scores: {cross_val_scores}\n")
-        else:
-            # Print error message if data loading fails
-            print(f"Skipping {dataset_name} evaluation due to data loading error.")
+            # Store the metrics for the dataset
+            metrics[dataset_name] = {
+                'accuracy': accuracy,
+                'report': report,
+                'cross_val_scores': cross_val_scores
+            }
+    return metrics

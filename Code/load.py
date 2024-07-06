@@ -31,9 +31,9 @@
 import pandas as pd
 from sqlalchemy import create_engine
 
-def load_train_data():
+def load_train_data(mysql_db_url, mysql_db_name):
     # Connect to the MySQL database
-    db_url = 'mysql+mysqlconnector://root:password@localhost/preprod_db'
+    db_url = f"{mysql_db_url}/{mysql_db_name}"
     engine = create_engine(db_url)
     
     # Load the training data from the 'train_data' table
@@ -45,9 +45,9 @@ def load_train_data():
     
     return X_train, y_train
 
-def load_test_val_superval_data():
+def load_test_val_superval_data(mysql_db_url, mysql_db_name):
     # Connect to the MySQL database
-    db_url = 'mysql+mysqlconnector://root:password@localhost/preprod_db'
+    db_url = f"{mysql_db_url}/{mysql_db_name}"
     engine = create_engine(db_url)
     
     # Load the test, validation, and supervalidation data from their respective tables

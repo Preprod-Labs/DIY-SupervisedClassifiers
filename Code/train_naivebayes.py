@@ -35,9 +35,9 @@ from evaluate import evaluate_model
 import pandas as pd
 from sklearn.preprocessing import LabelEncoder
 
-def train_model(model_path):
+def train_model(model_path, mysql_db_url, mysql_db_name):
     # Load the preprocessed training data from the database
-    X_train, y_train = load_train_data()
+    X_train, y_train = load_train_data(mysql_db_url, mysql_db_name)
 
     # Train the Gaussian Naive Bayes model
     model = GaussianNB()
@@ -53,10 +53,7 @@ def train_model(model_path):
     # Evaluate the model on the training dataset
     print("Evaluating Gaussian Naive Bayes on Training Data:")
     train_data = pd.concat([X_train, y_train], axis=1)
-    accuracy, report, cross_val_scores = evaluate_model(model, train_data, label_encoder)
-    print(f"Accuracy: {accuracy}")
-    print(f"Classification Report:\n{report}")
-    print(f"Cross-validation Scores: {cross_val_scores}\n")
+    return evaluate_model(model, train_data, label_encoder)
 
 if __name__ == "__main__":
     train_model('naive_bayes.pkl')

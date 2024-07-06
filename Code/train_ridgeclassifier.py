@@ -29,23 +29,22 @@
         # Scikit-learn: 1.5.0
 
 from sklearn.linear_model import RidgeClassifier
-import pickle
+import joblib
 from load import load_train_data
 from evaluate import evaluate_model
 import pandas as pd
 from sklearn.preprocessing import LabelEncoder
 
-def train_and_evaluate():
+def train_model(model_path, mysql_db_url, mysql_db_name):
     # Load the preprocessed training data from the database
-    X_train, y_train = load_train_data()
+    X_train, y_train = load_train_data(mysql_db_url, mysql_db_name)
 
     # Train the Ridge Classifier model
     model = RidgeClassifier()
     model.fit(X_train, y_train)
 
     # Save the model
-    with open('ridge_classifier.pkl', 'wb') as file:
-        pickle.dump(model, file)
+    joblib.dump(model, model_path)
 
     # Load label encoder to decode labels
     label_encoder = LabelEncoder()
@@ -54,10 +53,4 @@ def train_and_evaluate():
     # Evaluate the model on the training dataset
     print("Evaluating Ridge Classifier on Training Data:")
     train_data = pd.concat([X_train, y_train], axis=1)
-    accuracy, report, cross_val_scores = evaluate_model(model, train_data, label_encoder)
-    print(f"Accuracy: {accuracy}")
-    print(f"Classification Report:\n{report}")
-    print(f"Cross-validation Scores: {cross_val_scores}\n")
-
-if __name__ == "__main__":
-    train_and_evaluate()
+    return evaluate_model(model, train_data, label_encoder)
