@@ -77,8 +77,8 @@ with tab1:
 # Tab for Model Training
 with tab2:
     
-    st.subheader("Model Config")
-    st.write("This is where you can set your paths for the model.")
+    st.subheader("Model Training")
+    st.write("This is where you can train the model")
     st.divider()
 
     # Database selection
@@ -114,8 +114,8 @@ with tab2:
 # Tab for Model Evaluation
 with tab3:
 
-        st.subheader("Model Config")
-        st.write("This is where you can set your paths for the model.")
+        st.subheader("Model Evaluation")
+        st.write("This is where you can esee the current model metrics")
         st.divider()
         
         # Loading the metrics
