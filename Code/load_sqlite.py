@@ -11,12 +11,7 @@
     # Integration test: Pass
 
 # Description: This code loads the data from SQLite database.
-    # MYSQL: No
-    # NoSQL: Yes (MongoDB)
-    # MQs: No
-    # Cloud: No
-    # Data versioning: No
-    # Data masking: No
+    # SQLite: Yes
 
 # CODE - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
@@ -25,8 +20,8 @@
         # Python 3.11.5
         # Pandas 2.2.2
 
-import pandas as pd
-import sqlite3
+import pandas as pd # For data manipulation
+import sqlite3 # For SQLite
 
 def load_from_sqlite(table_name, db_path): # Load data from SQLite database
     conn = sqlite3.connect(db_path) # Establish a connection to the SQLite database

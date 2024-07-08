@@ -12,12 +12,6 @@
 
 # Description: This Streamlit app allows users to input features and make predictions using a re-trained
 # K-Nearest Neighbors model.
-    # MYSQL: No
-    # NoSQL: Yes (MongoDB)
-    # MQs: No
-    # Cloud: No
-    # Data versioning: No
-    # Data masking: Yes
 
 # CODE - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
@@ -26,7 +20,7 @@
         # Python 3.11.5
         # Streamlit 1.36.0
 
-import streamlit as st
+import streamlit as st # For creating the web app
 
 # Importing the helper functions from the .py helper files that we have created
 from ingest_transform_mongodb import mongo_data # Used to ingest and transform the data from the Master into the MongoDB database

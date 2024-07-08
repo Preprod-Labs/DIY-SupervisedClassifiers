@@ -11,12 +11,7 @@
     # Integration test: Pass
 
 # Description: This code loads the data from MongoDB database.
-    # MYSQL: No
-    # NoSQL: Yes (MongoDB)
-    # MQs: No
-    # Cloud: No
-    # Data versioning: No
-    # Data masking: No
+    # MongoDB: Yes
 
 # CODE - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
@@ -26,8 +21,8 @@
         # Pandas 2.2.2
         # pymongo 4.7.3
 
-import pandas as pd
-from pymongo import MongoClient
+import pandas as pd # For data manipulation
+from pymongo import MongoClient # For MongoDB
 
 def load_from_mongo(collection_name): # Load data from MongoDB
     client = MongoClient('mongodb://localhost:27017/') # Connect to MongoDB

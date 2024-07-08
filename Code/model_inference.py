@@ -11,12 +11,6 @@
     # Integration test: Pass
 
 # Description: This code evaluates the K-Nearest Neighbors model on testing, validation, and supervalidation datasets.
-    # MYSQL: No
-    # NoSQL: Yes (MongoDB)
-    # MQs: No
-    # Cloud: No
-    # Data versioning: No
-    # Data masking: No
 
 # CODE - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
@@ -26,9 +20,10 @@
         # scikit-learn 1.5.0
         # joblib 1.4.2
 
-from sklearn.metrics import classification_report
-import joblib
+from sklearn.metrics import classification_report # For classification report
+import joblib # For loading the pre-trained model
 
+# Importing the functions to load data from MongoDB and SQLite from local .py helper files
 from load_sqlite import get_eval_sqlite
 from load_mongodb import get_eval_mongo
 

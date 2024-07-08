@@ -11,12 +11,6 @@
     # Integration test: Pass
 
 # Description: This code trains a K-Nearest Neighbors model on the training data and saves the model.
-    # MYSQL: No
-    # NoSQL: Yes (MongoDB)
-    # MQs: No
-    # Cloud: No
-    # Data versioning: No
-    # Data masking: No
 
 # CODE - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
@@ -31,11 +25,12 @@
 # The model tends to overfit and gives 100% accuracy. In real-life scenarios with larger datasets, 
 # this overfitting would be less likely, and the accuracy would be more realistic.
 
-from sklearn.neighbors import KNeighborsClassifier
-from sklearn.metrics import classification_report
-from sklearn.model_selection import GridSearchCV
-import joblib
+from sklearn.neighbors import KNeighborsClassifier # For K-Nearest Neighbors model
+from sklearn.metrics import classification_report # For classification report
+from sklearn.model_selection import GridSearchCV # For hyperparameter tuning
+import joblib # For saving the model
 
+# Importing the functions to load data from MongoDB and SQLite from local .py helper files
 from load_mongodb import get_train_mongo
 from load_sqlite import get_train_sqlite
 

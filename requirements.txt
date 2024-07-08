@@ -1,6 +1,5 @@
-pandas
-scikit-learn
+pandas==2.2.2
+scikit-learn==1.5.0
+pymongo==4.7.3
+streamlit==1.36.0
 joblib
-pymongo
-numpy
-streamlit

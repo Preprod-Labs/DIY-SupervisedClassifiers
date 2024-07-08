@@ -12,12 +12,6 @@
 
 # Description: This code takes user inputs for features and makes predictions using a pre-trained
 # K-Nearest Neighbors model.
-    # MYSQL: No
-    # NoSQL: Yes (MongoDB)
-    # MQs: No
-    # Cloud: No
-    # Data versioning: No
-    # Data masking: No
 
 # CODE - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
@@ -26,7 +20,7 @@
         # Python 3.11.5
         # joblib 1.4.2
 
-import joblib
+import joblib # For loading the pre-trained model
 
 def manual_predict(age, vehicle_age, annual_mileage, accident_history, vehicle_type, model_path):
     # Load the pre-trained K-Nearest Neighbors model

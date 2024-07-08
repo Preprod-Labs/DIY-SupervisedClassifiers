@@ -11,12 +11,7 @@
     # Integration test: Pass
 
 # Description: This code ingests the original data, transforms it, and stores it into MongoDB database.
-    # MYSQL: No
-    # NoSQL: Yes (MongoDB)
-    # MQs: No
-    # Cloud: No
-    # Data versioning: No
-    # Data masking: No
+    # MongoDB: Yes
 
 # CODE - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
@@ -24,12 +19,12 @@
     # Environment:     
         # Python 3.11.5
         # Pandas 2.2.2
-        # scikit-learn 1.5.0
+        # Scikit-learn 1.5.0
         # pymongo 4.7.3
 
-import pandas as pd
-from sklearn.model_selection import train_test_split
-from pymongo import MongoClient
+import pandas as pd # For data manipulation
+from sklearn.model_selection import train_test_split # For splitting data
+from pymongo import MongoClient # For MongoDB
 
 
 def transform_data(data): # Transform raw data for model training

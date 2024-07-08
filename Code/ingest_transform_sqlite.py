@@ -1,22 +1,17 @@
 # META DATA - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
 # Developer details: 
-    # Name: Mohini T
-    # Role: Architect
-    # Code ownership rights: Mohini T
+    # Name: Mohini T and Vansh R
+    # Role: Architects
+    # Code ownership rights: Mohini T and Vansh R
 # Version:
-    # Version: V 1.0 (19 Mar 2024)
-    # Developer: Mohini T
+    # Version: V 1.0 (05 July 2024)
+    # Developer: Mohini T and Vansh R
     # Unit test: Pass
     # Integration test: Pass
 
 # Description: This code ingests the original data, transforms it, and stores it into SQLite database.
-    # MYSQL: No
-    # NoSQL: Yes (MongoDB)
-    # MQs: No
-    # Cloud: No
-    # Data versioning: No
-    # Data masking: No
+    # SQLite: Yes
 
 # CODE - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
@@ -24,11 +19,11 @@
     # Environment:     
         # Python 3.11.5
         # Pandas 2.2.2
-        # scikit-learn 1.5.0
+        # Scikit-learn 1.5.0
 
-import pandas as pd
-from sklearn.model_selection import train_test_split
-import sqlite3
+import pandas as pd # For data manipulation
+from sklearn.model_selection import train_test_split # For splitting data
+import sqlite3 # For SQLite
 
 def transform_data(data): # Transform raw data for model training
     data = pd.get_dummies(data, columns=['vehicle_type'], drop_first=True)
