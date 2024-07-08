@@ -12,13 +12,7 @@
      
     # Description: This code ingests raw data from a CSV file, preprocesses it, splits it into
     # datasets, and stores it in a MySQL database.
-
-        # MYSQL: Yes
-        # MQs: No
-        # Cloud: No
-        # Data versioning: No
-        # Data masking: No
-
+        # MySQL: Yes
 
 # CODE - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
@@ -30,10 +24,10 @@
         # mysql-connector-python: 8.4.0
         # SQLAlchemy: 2.0.31
 
-import pandas as pd
-from sklearn.model_selection import train_test_split
-from sqlalchemy import create_engine, text
-from sklearn.preprocessing import LabelEncoder, StandardScaler
+import pandas as pd # For data manipulation
+from sklearn.model_selection import train_test_split # For splitting the data
+from sqlalchemy import create_engine, text # For connecting to MySQL database
+from sklearn.preprocessing import LabelEncoder, StandardScaler # For preprocessing the data
 
 def create_database_if_not_exists(engine):
     with engine.connect() as conn:

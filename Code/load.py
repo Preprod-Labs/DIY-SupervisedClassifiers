@@ -10,14 +10,8 @@
             # Unit test: Pass
             # Integration test: Pass
      
-    # Description: Loads the training, test, validation, and supervalidation datasets from the MySQL database.
-    
+    # Description: Loads the training, test, validation, and supervalidation datasets from the MySQL database. 
         # MYSQL: Yes
-        # MQs: No
-        # Cloud: No
-        # Data versioning: No
-        # Data masking: No
-
 
 # CODE - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
@@ -28,8 +22,8 @@
         # mysql-connector-python: 8.4.0
         # SQLAlchemy: 2.0.31
 
-import pandas as pd
-from sqlalchemy import create_engine
+import pandas as pd # For data manipulation
+from sqlalchemy import create_engine # For connecting to MySQL database
 
 def load_train_data(mysql_db_url, mysql_db_name):
     # Connect to the MySQL database

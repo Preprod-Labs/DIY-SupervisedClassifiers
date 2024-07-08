@@ -13,23 +13,14 @@
     # Description: This code loads and preprocesses weather data from a CSV file, connects to a
     # MySQL database, creates a weather table, and ingests the data into the database.
 
-        # MYSQL: Yes
-        # MQs: No
-        # Cloud: No
-        # Data versioning: No
-        # Data masking: No
-
-
 # CODE - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
 # Dependency: 
     # Environment:     
         # Python: 3.11.5
         # Streamlit: 1.36.0
-        
-        
-# Importing the necessary libraries
-import streamlit as st
+
+import streamlit as st # Used to create the web app
 
 # # Importing the .py helper files
 from ingest_transform import ingest_and_transform # Used to ingest the data from the Master into the database, preproces and split the data

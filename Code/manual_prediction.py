@@ -12,13 +12,6 @@
      
     # Description: Takes user inputs for features and outputs a prediction using one of the saved models.
 
-        # MYSQL: Yes
-        # MQs: No
-        # Cloud: No
-        # Data versioning: No
-        # Data masking: No
-
-
 # CODE - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
 # Dependency: 
@@ -26,9 +19,11 @@
         # Python: 3.11.5
         # Pandas: 2.2.2
 
-import joblib
-import pandas as pd
-from sklearn.preprocessing import StandardScaler, LabelEncoder
+import joblib # For loading the trained model
+import pandas as pd # Framework for data manipulation
+from sklearn.preprocessing import StandardScaler, LabelEncoder # For scaling the features and encoding the target variable
+
+# Importing the necessary .py helper file to load the training data
 from load import load_train_data
 
 def load_model_and_encoder(model_path, mysql_db_url, mysql_db_name):

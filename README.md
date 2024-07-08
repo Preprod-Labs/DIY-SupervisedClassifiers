@@ -31,6 +31,8 @@ This is mock generated data just for learning purposes. It contains the Date, Te
 - **Validation Samples**: 150
 - **Supervalidation Samples**: 100
 
+> **Note:** Since the data was in <ins>continuous form (numeric data)</ins> instead of categorical, we have used Gaussian Naive Bayes. If the data were categorical, then we would have used Categorical Naive Bayes.
+
 ## Program Flow
 
 1. **Data Ingestion and Transformation:** Extract data from 'Data/Master', transform it, and store it in a MySQL database. [`ingest_transform.py`]

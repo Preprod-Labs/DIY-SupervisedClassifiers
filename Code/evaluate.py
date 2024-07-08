@@ -13,13 +13,6 @@
     # Description: Evaluates a given model on the test, validation, and supervalidation
     # datasets from the database and prints the classification report.
 
-        # MYSQL: Yes
-        # MQs: No
-        # Cloud: No
-        # Data versioning: No
-        # Data masking: No
-
-
 # CODE - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
 # Dependency: 
@@ -27,8 +20,8 @@
         # Python: 3.11.5
         # Scikit-learn: 1.5.0
 
-from sklearn.metrics import accuracy_score, classification_report
-from sklearn.model_selection import cross_val_score
+from sklearn.metrics import accuracy_score, classification_report # For evaluating the model
+from sklearn.model_selection import cross_val_score # For cross-validation
 
 def evaluate_model(model, data, label_encoder=None):
     # Exclude the 'day' column if it exists

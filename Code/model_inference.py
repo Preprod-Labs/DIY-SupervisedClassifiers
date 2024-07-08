@@ -13,13 +13,6 @@
     # Description: Performs inference using a saved model and test, validation, and supervalidation
     # datasets.
 
-        # MYSQL: Yes
-        # MQs: No
-        # Cloud: No
-        # Data versioning: No
-        # Data masking: No
-
-
 # CODE - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
 # Dependency: 
@@ -28,12 +21,14 @@
         # Pandas: 2.2.2
         # SQLAlchemy: 2.0.31
 
-import joblib
-import pandas as pd
-from sqlalchemy import create_engine
-from sqlalchemy.exc import SQLAlchemyError
+import joblib # For loading the model
+import pandas as pd # For data manipulation
+from sqlalchemy import create_engine # For connecting to MySQL database
+from sqlalchemy.exc import SQLAlchemyError # For handling database errors
+from sklearn.preprocessing import LabelEncoder # For encoding and decoding labels
+
+# Importing the necessary functions from .py helper file to evaluate the model
 from evaluate import evaluate_model
-from sklearn.preprocessing import LabelEncoder
 
 def load_data(db_url, table_name):
     try:

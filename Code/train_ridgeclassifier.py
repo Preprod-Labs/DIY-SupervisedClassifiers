@@ -13,13 +13,6 @@
     # Description: Trains a Ridge Classifier model on the training data and evaluates it
     # using the evaluate_model function.
 
-        # MYSQL: Yes
-        # MQs: No
-        # Cloud: No
-        # Data versioning: No
-        # Data masking: No
-
-
 # CODE - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
 # Dependency: 
@@ -28,12 +21,14 @@
         # Pandas: 2.2.2
         # Scikit-learn: 1.5.0
 
-from sklearn.linear_model import RidgeClassifier
-import joblib
+from sklearn.linear_model import RidgeClassifier # For training the Ridge Classifier model
+import joblib # For saving the model
+import pandas as pd # For data manipulation
+from sklearn.preprocessing import LabelEncoder # For encoding and decoding labels
+
+# Importing the necessary functions from .py helper file to load the training data and evaluate the model
 from load import load_train_data
 from evaluate import evaluate_model
-import pandas as pd
-from sklearn.preprocessing import LabelEncoder
 
 def train_model(model_path, mysql_db_url, mysql_db_name):
     # Load the preprocessed training data from the database
